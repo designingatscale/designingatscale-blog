@@ -1,0 +1,30 @@
+[
+  {
+    "name": "An Thanh Phan",
+    "slug": "an-thanh-phan",
+    "role": "Founder",
+    "title": "Software Engineer · Investment Solutions, Financial Service @ Zalopay",
+    "avatar": "A",
+    "color": "#059669",
+    "colorBg": "rgba(5,150,105,0.1)",
+    "github": "https://github.com/anthanhphan",
+    "githubHandle": "anthanhphan",
+    "linkedin": "https://linkedin.com/in/anthanhphan",
+    "linkedinHandle": "anthanhphan",
+    "email": "an.thanhphan.work@gmail.com"
+  },
+  {
+    "name": "Dang Nguyen Huu",
+    "slug": "dang-nguyen-huu",
+    "role": "Founder",
+    "title": "Software Engineer · Lending Solutions, Financial Service @ Zalopay",
+    "avatar": "D",
+    "color": "#6366f1",
+    "colorBg": "rgba(99,102,241,0.1)",
+    "github": "https://github.com/ddlg3003",
+    "githubHandle": "ddlg3003",
+    "linkedin": "https://www.linkedin.com/in/dangnguyen303001/",
+    "linkedinHandle": "dangnguyen303001",
+    "email": ""
+  }
+]
