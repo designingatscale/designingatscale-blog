@@ -51,7 +51,7 @@ export default function Home() {
           style={{ fontFamily: "'Bricolage Grotesque', sans-serif", letterSpacing: '-0.035em', color: '#111110' }}
         >
           Building systems that{' '}
-          <em className="not-italic" style={{ color: '#059669' }}>don't break</em>{' '}
+          <em className="not-italic whitespace-nowrap" style={{ color: '#059669' }}>don't break</em>{' '}
           at scale.
         </h1>
 
