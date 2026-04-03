@@ -50,7 +50,7 @@ export default function Home() {
           className="text-5xl sm:text-6xl font-bold leading-[1.06] mb-5 max-w-3xl"
           style={{ fontFamily: "'Bricolage Grotesque', sans-serif", letterSpacing: '-0.035em', color: '#111110' }}
         >
-          Writing about systems that{' '}
+          Building systems that{' '}
           <em className="not-italic" style={{ color: '#059669' }}>don't break</em>{' '}
           at scale.
         </h1>
