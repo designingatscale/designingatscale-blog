@@ -1,5 +1,4 @@
 ---
-slug: "cdn"
 title: "How Content Delivery Networks Work"
 date: "2026-03-15"
 author: "Dang Nguyen Huu"

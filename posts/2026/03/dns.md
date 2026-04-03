@@ -1,5 +1,4 @@
 ---
-slug: "dns"
 title: "DNS: From Domain Names to IP Addresses"
 date: "2026-03-10"
 author: "Dang Nguyen Huu"
