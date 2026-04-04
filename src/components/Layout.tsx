@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Mail, ArrowUpRight, Copy, Check } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
+import contactData from '../data/contact.json';
 
 const GithubIcon = ({ size = 24, className = '' }: { size?: number; className?: string }) => (
     <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className}>
@@ -23,26 +24,14 @@ const LogoMark = ({ height = 44, invert = false }: { height?: number; invert?: b
     />
 );
 
-function ContactLink({ href, icon: Icon, text, copyText }: {
+function ContactLink({ href, icon: Icon, text }: {
     href: string;
     icon: React.ElementType;
     text: string;
-    copyText?: string;
 }) {
-    const [copied, setCopied] = React.useState(false);
-    const isMail = href.startsWith('mailto:');
-
     const handleClick = (e: React.MouseEvent) => {
         e.preventDefault();
-        if (isMail) {
-            const textToCopy = copyText || text;
-            navigator.clipboard.writeText(textToCopy).then(() => {
-                setCopied(true);
-                setTimeout(() => setCopied(false), 2000);
-            });
-        } else {
-            window.open(href, '_blank', 'noopener,noreferrer');
-        }
+        window.open(href, '_blank', 'noopener,noreferrer');
     };
 
     return (
@@ -53,18 +42,7 @@ function ContactLink({ href, icon: Icon, text, copyText }: {
         >
             <Icon size={15} className="flex-shrink-0" />
             <span className="truncate group-hover:text-white transition-colors">{text}</span>
-            {isMail && (
-                <span className="ml-auto flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
-                    {copied ? (
-                        <Check size={13} style={{ color: '#6EE7B7' }} />
-                    ) : (
-                        <Copy size={13} />
-                    )}
-                </span>
-            )}
-            {!isMail && (
-                <ArrowUpRight size={13} className="ml-auto flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" />
-            )}
+            <ArrowUpRight size={13} className="ml-auto flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" />
         </button>
     );
 }
@@ -167,6 +145,36 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                             >
                                 About
                             </Link>
+                            {/* Divider */}
+                            <span className="mx-1 select-none" style={{ color: 'rgba(17,17,16,0.18)', fontSize: '0.85rem' }}>|</span>
+                            {contactData.github && (
+                                <a
+                                    href={contactData.github.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="p-2 rounded-lg transition-colors"
+                                    style={{ color: 'rgba(17,17,16,0.4)' }}
+                                    onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = '#111110'}
+                                    onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = 'rgba(17,17,16,0.4)'}
+                                    aria-label="GitHub"
+                                >
+                                    <GithubIcon size={16} />
+                                </a>
+                            )}
+                            {contactData.linkedin && (
+                                <a
+                                    href={contactData.linkedin.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="p-2 rounded-lg transition-colors"
+                                    style={{ color: 'rgba(17,17,16,0.4)' }}
+                                    onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = '#111110'}
+                                    onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = 'rgba(17,17,16,0.4)'}
+                                    aria-label="LinkedIn"
+                                >
+                                    <LinkedinIcon size={16} />
+                                </a>
+                            )}
                         </nav>
                     </div>
                 </div>
@@ -231,23 +239,19 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                                 Get in touch
                             </h3>
                             <div className="space-y-4">
-                                <ContactLink href="mailto:an.thanhphan.work@gmail.com" icon={Mail} text="an.thanhphan.work@gmail.com" copyText="an.thanhphan.work@gmail.com" />
-                                <ContactLink href="https://github.com/anthanhphan" icon={GithubIcon} text="github.com/anthanhphan" />
-                                <ContactLink href="https://linkedin.com/in/anthanhphan" icon={LinkedinIcon} text="linkedin.com/in/anthanhphan" />
+                                {contactData.github && <ContactLink href={contactData.github.url} icon={GithubIcon} text={contactData.github.label} />}
+                                {contactData.linkedin && <ContactLink href={contactData.linkedin.url} icon={LinkedinIcon} text={contactData.linkedin.label} />}
                             </div>
                         </div>
                     </div>
 
                     {/* Copyright bar */}
                     <div
-                        className="py-6 flex flex-col sm:flex-row items-center justify-between gap-4"
+                        className="py-6 flex items-center justify-center"
                         style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}
                     >
                         <p className="text-xs font-mono" style={{ color: 'rgba(240,238,232,0.2)' }}>
-                            &copy; {new Date().getFullYear()} An Thanh Phan
-                        </p>
-                        <p className="text-xs font-mono" style={{ color: 'rgba(240,238,232,0.12)' }}>
-                            Built with React &middot; Crafted with care
+                            &copy; {new Date().getFullYear()} Designing At Scale
                         </p>
                     </div>
                 </div>
