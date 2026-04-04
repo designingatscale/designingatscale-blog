@@ -14,23 +14,13 @@ const LinkedinIcon = ({ size = 24, className = '' }: { size?: number; className?
     </svg>
 );
 
-// Brand logo mark — emerald D on light bg
-const LogoMark = () => (
-    <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="30" height="30" rx="7" fill="#059669" />
-        <text
-            x="15"
-            y="21.5"
-            textAnchor="middle"
-            fontFamily="'Bricolage Grotesque', sans-serif"
-            fontWeight="800"
-            fontSize="15"
-            fill="#FFFFFF"
-            letterSpacing="-0.5"
-        >
-            D
-        </text>
-    </svg>
+// Brand logo mark — actual logo image
+const LogoMark = ({ height = 44, invert = false }: { height?: number; invert?: boolean }) => (
+    <img
+        src="/logo_transparent.png"
+        alt="DesigningAtScale logo"
+        style={{ height: `${height}px`, width: 'auto', filter: invert ? 'brightness(0) invert(1)' : undefined }}
+    />
 );
 
 function ContactLink({ href, icon: Icon, text, copyText }: {
@@ -123,7 +113,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 <div style={{ background: 'rgba(247,246,242,0.92)', backdropFilter: 'blur(20px)' }}>
                     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
                         <Link to="/" className="flex items-center gap-3 group">
-                            <LogoMark />
+                            <LogoMark height={52} />
                             <span
                                 className="font-bold text-base tracking-tight transition-colors"
                                 style={{ fontFamily: "'Bricolage Grotesque', sans-serif", color: '#111110', letterSpacing: '-0.02em' }}
@@ -193,7 +183,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                         {/* Brand column */}
                         <div className="md:col-span-5 space-y-5">
                             <div className="flex items-center gap-3">
-                                <LogoMark />
+                                <LogoMark height={60} invert />
                                 <span
                                     className="font-bold text-lg tracking-tight"
                                     style={{ fontFamily: "'Bricolage Grotesque', sans-serif", color: '#F0EEE8', letterSpacing: '-0.02em' }}
