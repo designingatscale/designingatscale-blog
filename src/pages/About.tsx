@@ -1,5 +1,5 @@
 import { useEffect, useState, Fragment } from 'react';
-import { ArrowRight, Cpu, Database, Globe, BookOpen, Layers, GitBranch, Users } from 'lucide-react';
+import { ArrowRight, Cpu, Database, Globe, BookOpen, Layers, GitBranch } from 'lucide-react';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import teamData from '../data/team.json';
 import { AuthorCard } from '../components/AuthorCard';
@@ -68,31 +68,28 @@ export default function About() {
   return (
     <div className="max-w-3xl mx-auto">
       {/* Header */}
-      <div className="pb-8 border-b mb-10" style={{ borderColor: 'rgba(0,0,0,0.06)' }}>
+      <div className="pb-10 border-b mb-12" style={{ borderColor: 'rgba(0,0,0,0.06)' }}>
         <h1
-          className="text-3xl sm:text-4xl font-bold mb-4"
+          className="text-4xl sm:text-5xl font-bold mb-3"
           style={{ fontFamily: "'Bricolage Grotesque', sans-serif", color: '#111110', letterSpacing: '-0.03em' }}
         >
-          What is DesigningAtScale?
+          About
         </h1>
-
-        <div className="space-y-3 text-base leading-relaxed" style={{ color: 'rgba(17,17,16,0.6)' }}>
-          <p>
-            <strong style={{ color: '#111110', fontWeight: 600 }}>DesigningAtScale</strong> is an engineering blog focused on technical depth. We cover systems programming, distributed infrastructure, and the implementation details that most introductory content skips.
-          </p>
-          <p>
-            Articles here start from the internals — storage engines, network protocols, data structures, consensus algorithms — and work outward to design decisions and tradeoffs. The writing assumes you already write code professionally.
-          </p>
-        </div>
+        <p className="text-lg" style={{ color: 'rgba(17,17,16,0.45)' }}>
+          An engineering blog that goes deeper than most. We write about the internals of systems you already rely on — storage engines, network protocols, distributed algorithms — and the design decisions that separate code that holds from code that falls apart.
+        </p>
+        <p className="text-base mt-3 leading-relaxed" style={{ color: 'rgba(17,17,16,0.38)' }}>
+          Articles here assume you write code professionally. We skip the preamble and get straight to how things actually work: implementation details, real tradeoffs, and the kind of reasoning you'd find in a design doc or a postmortem, not a tutorial.
+        </p>
       </div>
 
-      {/* What we cover */}
-      <div className="mb-10">
+      {/* What we write about */}
+      <div className="mb-12">
         <h2
           className="text-xl font-bold mb-5"
           style={{ fontFamily: "'Bricolage Grotesque', sans-serif", color: '#111110', letterSpacing: '-0.025em' }}
         >
-          What we cover
+          What we write about
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -138,40 +135,17 @@ export default function About() {
         )}
       </div>
 
-      {/* Philosophy */}
-      <div className="mb-10 rounded-2xl p-6" style={{ background: '#FFFFFF', border: '1px solid rgba(0,0,0,0.07)' }}>
+      {/* Members */}
+      <div id="team" className="mb-12 scroll-mt-24">
         <h2
           className="text-xl font-bold mb-5"
           style={{ fontFamily: "'Bricolage Grotesque', sans-serif", color: '#111110', letterSpacing: '-0.02em' }}
         >
-          How we approach writing
+          Members
         </h2>
-        <div className="space-y-3 text-sm leading-relaxed" style={{ color: 'rgba(17,17,16,0.58)' }}>
-          <p>
-            Each article focuses on a specific concept or system component. We try to be precise rather than broad — covering one thing well rather than surveying a topic at surface level.
-          </p>
-          <p>
-            Posts include implementation details where relevant: real code, actual complexity tradeoffs, concrete examples from production systems. Diagrams are used when they clarify, not to fill space.
-          </p>
-        </div>
-      </div>
 
-      {/* Team */}
-      <div id="team" className="mb-10 scroll-mt-24">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-8 h-8 rounded-xl flex items-center justify-center" style={{ background: 'rgba(5,150,105,0.08)', color: '#059669' }}>
-            <Users size={15} />
-          </div>
-          <h2
-            className="text-xl font-bold"
-            style={{ fontFamily: "'Bricolage Grotesque', sans-serif", color: '#111110', letterSpacing: '-0.02em' }}
-          >
-            The team
-          </h2>
-        </div>
-
-        <div className="rounded-2xl p-7" style={{ background: '#FFFFFF', border: '1px solid rgba(0,0,0,0.07)' }}>
-          {teamData.map((member, idx) => {
+        <div className="space-y-1">
+          {teamData.map((member) => {
             const memberId = `team-${member.slug}`;
             const isHighlighted = highlightedId === memberId;
             const ringColor = member.color;
@@ -183,72 +157,53 @@ export default function About() {
 
             return (
               <Fragment key={member.slug}>
-                {idx > 0 && (
-                  <div className="my-6 h-px" style={{ background: 'rgba(0,0,0,0.06)' }} />
-                )}
-                <div id={memberId} className="relative flex items-start gap-5 scroll-mt-24">
-                  {/* Focus ring */}
+                <div
+                  id={memberId}
+                  className="relative flex items-center gap-4 px-4 py-4 -mx-4 rounded-xl scroll-mt-24 transition-colors duration-150"
+                  style={{ background: isHighlighted ? `rgba(${ringRgb},0.04)` : 'transparent' }}
+                  onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = 'rgba(0,0,0,0.025)'}
+                  onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = isHighlighted ? `rgba(${ringRgb},0.04)` : 'transparent'}
+                >
                   {isHighlighted && (
                     <div style={{
-                      position: 'absolute', inset: '-8px', borderRadius: '18px',
-                      border: `1.5px solid ${ringColor}80`,
-                      boxShadow: `0 0 0 4px rgba(${ringRgb},0.07)`,
+                      position: 'absolute', inset: '0', borderRadius: '12px',
+                      border: `1.5px solid ${ringColor}50`,
                       pointerEvents: 'none',
                       animation: 'authorRingFade 2.5s ease-out forwards',
                     }} />
                   )}
 
-                  {/* Avatar */}
+                  {/* Avatar circle */}
                   <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 text-lg font-bold"
+                    className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-sm"
                     style={{ background: member.colorBg, color: member.color, fontFamily: "'Bricolage Grotesque', sans-serif" }}
                   >
                     {member.avatar}
                   </div>
 
-                  {/* Info */}
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2.5 mb-1">
-                      <h3 className="font-bold" style={{ color: '#111110', fontFamily: "'Bricolage Grotesque', sans-serif" }}>
+                    <div className="flex items-center gap-2 flex-wrap mb-0.5">
+                      <span className="font-semibold text-sm" style={{ color: '#111110', fontFamily: "'Bricolage Grotesque', sans-serif" }}>
                         {member.name}
-                      </h3>
-                      <span
-                        className="text-[10px] font-mono px-2 py-0.5 rounded uppercase tracking-wider"
-                        style={{
-                          background: `${member.color}12`,
-                          color: member.color,
-                          border: `1px solid ${member.color}26`,
-                        }}
-                      >
+                      </span>
+                      <span className="text-[10px] font-mono uppercase tracking-wider" style={{ color: member.color, opacity: 0.7 }}>
                         {member.role}
                       </span>
+                      <span style={{ color: 'rgba(17,17,16,0.15)', fontSize: '0.6rem' }}>·</span>
+                      <AuthorCard member={member} variant="light" />
                     </div>
-
-                    <p className="text-sm leading-relaxed mb-3" style={{ color: 'rgba(17,17,16,0.5)' }}>
+                    <p className="text-xs leading-relaxed" style={{ color: 'rgba(17,17,16,0.4)' }}>
                       {member.title}
                     </p>
-
-                    {/* Contact links via shared AuthorCard (light variant) */}
-                    <AuthorCard member={member} variant="light" />
                   </div>
                 </div>
               </Fragment>
             );
           })}
 
-          {/* More authors placeholder */}
-          <div
-            className="mt-6 pt-6 flex items-center gap-3"
-            style={{ borderTop: '1px solid rgba(0,0,0,0.06)' }}
-          >
-            <div
-              className="w-8 h-8 rounded-lg border-2 border-dashed flex items-center justify-center flex-shrink-0"
-              style={{ borderColor: 'rgba(0,0,0,0.12)' }}
-            >
-              <span style={{ color: 'rgba(17,17,16,0.2)', fontSize: '1rem' }}>+</span>
-            </div>
-            <p className="text-sm" style={{ color: 'rgba(17,17,16,0.35)' }}>More authors joining soon.</p>
-          </div>
+          <p className="text-xs font-mono px-4 pt-3" style={{ color: 'rgba(17,17,16,0.22)' }}>
+            + More members coming
+          </p>
         </div>
       </div>
 
@@ -264,7 +219,7 @@ export default function About() {
             <span className="text-sm font-semibold" style={{ color: '#111110' }}>Start reading</span>
           </div>
           <p className="text-sm" style={{ color: 'rgba(17,17,16,0.5)' }}>
-            Browse all articles or follow a structured series.
+            Browse all articles or start with a structured series.
           </p>
         </div>
         <div className="flex items-center gap-3 flex-shrink-0">

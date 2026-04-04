@@ -56,7 +56,7 @@ export default function Home() {
         </h1>
 
         <p className="text-lg max-w-xl leading-relaxed mb-6" style={{ color: 'rgba(17,17,16,0.42)', fontWeight: 400 }}>
-          Distributed systems, database internals, protocol design — and the engineering discipline of building reliable software.
+          Engineering notes on systems that hold. Distributed consensus, storage internals, protocol design — the parts of the stack most articles skip over.
         </p>
 
         <div className="flex items-center gap-4">
@@ -153,7 +153,7 @@ export default function Home() {
             className="text-lg font-bold"
             style={{ fontFamily: "'Bricolage Grotesque', sans-serif", color: '#111110', letterSpacing: '-0.02em' }}
           >
-            Recent writings
+            Latest
           </h2>
           <Link
             to="/posts"
@@ -233,7 +233,7 @@ export default function Home() {
 
         {posts.length === 0 && (
           <div className="text-center py-16 rounded-2xl" style={{ background: '#FFFFFF', border: '1px dashed rgba(0,0,0,0.1)' }}>
-            <p style={{ color: 'rgba(17,17,16,0.35)' }}>No writings yet. Stay tuned.</p>
+            <p style={{ color: 'rgba(17,17,16,0.35)' }}>Nothing published yet.</p>
           </div>
         )}
       </section>

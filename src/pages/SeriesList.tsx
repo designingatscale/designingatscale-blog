@@ -1,12 +1,13 @@
 import { useEffect, useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { fetchPosts } from '../services/api';
+import { fetchPosts, getPostsCache } from '../services/api';
 import { Post } from '../types';
 import { Layers } from 'lucide-react';
 
 export default function SeriesList() {
-  const [posts, setPosts] = useState<Post[]>([]);
-  const [loading, setLoading] = useState(true);
+  const cached = getPostsCache();
+  const [posts, setPosts] = useState<Post[]>(cached ?? []);
+  const [loading, setLoading] = useState(!cached);
 
   useEffect(() => {
     fetchPosts()
@@ -47,7 +48,7 @@ export default function SeriesList() {
           Series
         </h1>
         <p className="text-lg" style={{ color: 'rgba(17,17,16,0.45)' }}>
-          Curated multi-part articles on specific engineering topics, meant to be read in order.
+          Multi-part deep dives into specific engineering topics. Each series builds on the previous part — read them in order.
         </p>
       </div>
 

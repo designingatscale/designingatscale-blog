@@ -19,8 +19,27 @@ async function request<T>(url: string, options?: RequestInit): Promise<T> {
   return response.json();
 }
 
+let postsCache: Post[] | null = null;
+let postsCachePromise: Promise<Post[]> | null = null;
+
+export function getPostsCache(): Post[] | null {
+  return postsCache;
+}
+
 export function fetchPosts(): Promise<Post[]> {
-  return request<Post[]>('/api/posts.json');
+  if (postsCache) return Promise.resolve(postsCache);
+  if (postsCachePromise) return postsCachePromise;
+  postsCachePromise = request<Post[]>('/api/posts.json').then(data => {
+    postsCache = data;
+    postsCachePromise = null;
+    return data;
+  });
+  return postsCachePromise;
+}
+
+export function invalidatePostsCache() {
+  postsCache = null;
+  postsCachePromise = null;
 }
 
 export function fetchPost(slug: string): Promise<Post> {

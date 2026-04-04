@@ -1,6 +1,6 @@
 import { useEffect, useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { fetchPosts } from '../services/api';
+import { fetchPosts, getPostsCache } from '../services/api';
 import { Post } from '../types';
 import { ArrowRight, BookOpen, Cpu, Database, Globe, Zap, Hash } from 'lucide-react';
 
@@ -12,8 +12,9 @@ const topicIcons: Record<string, React.ElementType> = {
 };
 
 export default function Topics() {
-  const [posts, setPosts] = useState<Post[]>([]);
-  const [loading, setLoading] = useState(true);
+  const cached = getPostsCache();
+  const [posts, setPosts] = useState<Post[]>(cached ?? []);
+  const [loading, setLoading] = useState(!cached);
 
   useEffect(() => {
     fetchPosts()
@@ -40,7 +41,7 @@ export default function Topics() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="max-w-3xl mx-auto">
       <div className="pb-10 border-b mb-12" style={{ borderColor: 'rgba(0,0,0,0.06)' }}>
         <h1
           className="text-4xl sm:text-5xl font-bold mb-3"
@@ -49,7 +50,7 @@ export default function Topics() {
           Topics
         </h1>
         <p className="text-lg" style={{ color: 'rgba(17,17,16,0.45)' }}>
-          Browse articles by subject area. From database internals to distributed system theory.
+          Everything grouped by subject area. Pick a domain and go deep.
         </p>
       </div>
 

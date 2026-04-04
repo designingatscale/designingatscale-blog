@@ -111,16 +111,9 @@ export function AuthorCard({ member, variant = 'light' }: AuthorCardProps) {
     </div>
   );
 
-  // Light variant: links only, no avatar/name (already shown in the card above)
+  // Light variant: plain links, no wrapper box
   if (!isDark) {
-    return (
-      <div
-        className="inline-flex items-center px-3 py-2 rounded-xl"
-        style={{ background: bgColor, border: `1px solid ${borderColor}` }}
-      >
-        {socialLinks}
-      </div>
-    );
+    return socialLinks;
   }
 
   // Hero variant (dark): avatar + name + divider + links

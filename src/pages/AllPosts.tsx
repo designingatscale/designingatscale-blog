@@ -1,6 +1,6 @@
 import { useEffect, useState, useMemo, useCallback } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { fetchPosts } from '../services/api';
+import { fetchPosts, getPostsCache } from '../services/api';
 import { Post } from '../types';
 import { format } from 'date-fns';
 import { ArrowRight, Search, Star, Layers, X, Cpu, Database, Globe, Zap, Tag, User } from 'lucide-react';
@@ -52,8 +52,9 @@ function AuthorAvatar({ name, size = 28 }: { name: string; size?: number }) {
 }
 
 export default function AllPosts() {
-  const [posts, setPosts] = useState<Post[]>([]);
-  const [loading, setLoading] = useState(true);
+  const cached = getPostsCache();
+  const [posts, setPosts] = useState<Post[]>(cached ?? []);
+  const [loading, setLoading] = useState(!cached);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const searchQuery = searchParams.get('q') || '';
@@ -154,10 +155,10 @@ export default function AllPosts() {
           className="text-3xl sm:text-4xl font-bold mb-2"
           style={{ fontFamily: "'Bricolage Grotesque', sans-serif", color: '#111110', letterSpacing: '-0.03em' }}
         >
-          All Writings
+          All Posts
         </h1>
         <p className="text-sm" style={{ color: 'rgba(17,17,16,0.4)' }}>
-          {posts.length} articles on distributed systems, databases, networking, and more.
+          {posts.length} articles. Storage engines, consensus algorithms, network protocols, and more.
         </p>
       </div>
 
